@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 import  random
 class Solver_8_queens:
-    '''
-    Dummy constructor representing proper interface
-    '''
+
     ___pop_size = 0
     __cross_prob = 0
     __mut_prob = 0
@@ -14,10 +12,6 @@ class Solver_8_queens:
         self.__cross_prob = cross_prob
         self.__mut_prob = mut_prob
 
-
-    '''
-    Dummy method representing proper interface
-    '''
     def get_first_generation(self):
         random.seed()
         temp_arr = []
@@ -42,18 +36,18 @@ class Solver_8_queens:
                     fitness += 1
         return 1/(fitness/2+1)
 
-    def crossover(self,parent1="",parent2=""):
+    def crossover(self, parent1="", parent2=""):
         random.seed()
-        point=random.randint(0,len(parent1))
-        child1=parent1[0:point]+parent2[point:len(parent1)]
-        child2=parent2[0:point]+parent1[point:len(parent1)]
-        return child1,child2
+        point=random.randint(0, len(parent1))
+        child1 = parent1[0:point] + parent2[point:len(parent1)]
+        child2 = parent2[0:point] + parent1[point:len(parent1)]
+        return child1, child2
 
-    def get_new_generation(self,old_generation):
+    def get_new_generation(self, old_generation):
         random.seed();
-        children=[]
+        children = []
         random.shuffle(old_generation)
-        for i in range(0,len(old_generation)//2):
+        for i in range(0, len(old_generation) // 2):
             child1,child2=self.crossover(old_generation[i],old_generation[i+1])
             children.append(child1)
             children.append(child2)
@@ -88,29 +82,29 @@ class Solver_8_queens:
         random.seed()
         result=[]
         for i in genotypes:
-            temp=i
-            for j in range(0,len(temp)):
+            temp = i
+            for j in range(0, len(temp)):
                 if self.__mut_prob > random.random():
-                    temp=temp[0:j] + str(int(temp[j], 2) ^ 1) + temp[j+1: len(temp)]
+                    temp = temp[0:j] + str(int(temp[j], 2) ^ 1) + temp[j+1: len(temp)]
             result.append(temp)
         return result
 
 
 
-    def get_best_fit_and_ph(self,genotypes=[]):
+    def get_best_fit_and_ph(self,genotypes = []):
         max_fitness = 0
         best_ph = [];
         for i in genotypes:
             fitness = self.get_fitness(self.get_phenotype(i));
             if fitness > max_fitness:
                 max_fitness = fitness
-                best_ph=self.get_phenotype(i)
+                best_ph = self.get_phenotype(i)
         return max_fitness, best_ph
 
     def get_visualization(self, phenotype):
         result=""
-        for i in range(0,8):
-            result=result+("+"*phenotype[i]+"Q"+"+"*(8-1-phenotype[i])+"\n")
+        for i in range(0, 8):
+            result=result + ("+"*phenotype[i]+"Q"+"+" * (8 - 1 - phenotype[i]) + "\n")
         return result
 
 
@@ -140,7 +134,6 @@ class Solver_8_queens:
                 break
             curr_generation=self.get_new_generation(curr_generation)
             curr_generation=self.get_mutated_generation(curr_generation)
-            print (len(curr_generation))
             epoch_num = i + 1;
         best_fit = total_max_fit
         visualization = self.get_visualization(total_best_ph)
