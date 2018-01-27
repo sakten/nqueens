@@ -11,7 +11,7 @@ max_epochs = int(input())
 for i in range(1,num_of_tryes):
     solver=nq.Solver_8_queens()
     best_fit, epoch_num, visualization = solver.solve(0.9, max_epochs)
-    if math.fabs(best_fit- 1.0) <0.00001 :
+    if math.fabs(best_fit - 1.0) <0.00001 :
         average_epochs+=epoch_num
     else:
         fails+=1
