@@ -14,8 +14,7 @@ class Solver_8_queens:
         self.__gen_size = int(math.ceil(math.log(self.__board_size, 2)))
         self.best_fitness = 0
         self.best_genotype = 0
-        pass
-
+        
     def get_random_generation(self):
         random.seed()
         temp_arr = []
